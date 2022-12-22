@@ -5,8 +5,9 @@ import numpy as np
 
 def predict_single(customer, model):
     customer = pd.DataFrame(customer, index=[0])
+    proba = model.predict_proba(customer)[:,1]
     y_pred = model.predict(customer)
-    return y_pred
+    return y_pred, proba
 
 
 with open('churn_model.bin', 'rb') as f_in:
@@ -18,11 +19,12 @@ app = Flask('churn_prediction')
 def predict():
     customer = request.get_json()
 
-    prediction = predict_single(customer, model)
+    prediction, proba = predict_single(customer, model)
 
     result = {
-              'Churn': prediction
-             }
+        'Churn': bool(prediction),
+        'Probability': float(proba)
+        }
 
     return jsonify(result)
 
