@@ -41,7 +41,7 @@ import requests
 
 customer = {
     'CreditScore': int, 
-    'Geography': str # 'Spain', 'Germany' of 'France',
+    'Geography': str, # 'Spain', 'Germany' of 'France'
     'Gender': str, 
     'Age': int, 
     'Tenure': int, 
